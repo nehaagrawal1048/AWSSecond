@@ -3,7 +3,7 @@ FROM golang:1.24-alpine
 
 
 #### Create directory ##########
-WORKDIR /app
+WORKDIR /awssecond
 
 ######### copy all your code in the image
 COPY . .
