@@ -30,7 +30,22 @@ jobs:
 
     - name: Push the docker to docker hub
       run: docker push ${{secrets.DOCKER_USERNAME}}/awssecond
+  Build:
+    runs-on: self-hosted
+    needs: CI
+    steps:
 
+      - name: Pull my Docker image
+        run: docker pull ${{secrets.DOCKER_USERNAME}}/awssecond:latest
+
+      - name: stop old running containers
+        run: docker stop awssecond || true
+
+      - name: remove old running containers
+        run: docker remove awssecond || true
+
+      - name: run container out of image
+        run: docker run -d -p 80:7080 -name awssecond ${{secrets.DOCKER_USERNAME}}/awssecond:latest
 # jobs:
 #   # This workflow contains a single job called "build"
 #   build:
