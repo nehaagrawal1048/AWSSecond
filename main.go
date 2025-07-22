@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 //fmt.Println("hello")
 
@@ -434,11 +437,32 @@ func main() {
 	// }()
 	// time.Sleep(5 * time.Second)
 
-	router := http.NewServeMux()
-	router.HandleFunc("GET /greet", greetUser)
-	http.ListenAndServe(":7080", router)
-}
-func greetUser(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte("Welcome user!!"))
 
+
+// 	router := http.NewServeMux()
+// 	router.HandleFunc("GET /greet", greetUser)
+// 	http.ListenAndServe(":7080", router)
+// }
+// func greetUser(w http.ResponseWriter, req *http.Request) {
+// 	w.Write([]byte("Welcome user!!"))
+
+var num int
+Echan := make(chan int)
+Ochan := make(chan int)
+
+
+go func(){
+	if (num%2 == 1) {
+		Ochan := num
+		fmt.Println("Printed odd numbers %d %n", <-Ochan)
+		time.Sleep(1 * time.Second)
+
+	}
+	else {
+		Echan := num
+		fmt.Println("Printed odd numbers %d %n", <-Echan)
+	}
+}()
+
+num:= 1
 }
